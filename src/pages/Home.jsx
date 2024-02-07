@@ -1,14 +1,21 @@
-import React from 'react';
-import logo from '../assets/bus.png';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import logo from "../assets/bus.png";
 
-const HomePage = () => {
+function Home() {
+    const history = useHistory();
+
+    const handleStart = () => {
+        history.push('/new-page'); // Navigate to new page
+    };
+
     return (
         <div>
-            <img src={logo} alt="Logo" className='logo' />
+            <img src={logo} alt="Logo" className="logo" />
             <h1>Bus Tracking App</h1>
-            <button>Start</button>
+            <button onClick={handleStart}>Start</button>
         </div>
     );
-};
+}
 
-export default HomePage;
+export default Home;

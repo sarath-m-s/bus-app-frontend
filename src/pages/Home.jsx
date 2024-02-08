@@ -1,9 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/bus.png";
 
 function Home() {
-    const navigate = useHistory();
+    const navigate = useNavigate();
 
     const handleStart = () => {
         navigate('/menu');

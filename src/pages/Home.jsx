@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 import logo from "../assets/bus.png";
 
 function Home() {
-    const history = useHistory();
+    const navigate = useHistory();
 
     const handleStart = () => {
-        history.push('/new-page'); // Navigate to new page
+        navigate('/menu');
     };
 
     return (

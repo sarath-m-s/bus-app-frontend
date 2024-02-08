@@ -1,17 +1,17 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSend = () => {
     console.log("Send data to DynamoDB");
-    history.push("/set");
+    navigate("/set");
   };
 
   const handleGet = () => {
     console.log("Get data from DynamoDB");
-    history.push("/get"); 
+    navigate("/get"); 
   };
 
   return (

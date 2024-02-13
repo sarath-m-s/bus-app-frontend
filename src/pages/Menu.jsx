@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/Menu.css";
 
 function Menu() {
   const navigate = useNavigate();
@@ -11,13 +12,17 @@ function Menu() {
 
   const handleGet = () => {
     console.log("Get data from DynamoDB");
-    navigate("/get"); 
+    navigate("/get");
   };
 
   return (
-    <div>
-      <button onClick={handleSend}>Send</button>
-      <button onClick={handleGet}>Receive</button>
+    <div className="menu-container">
+      <div>
+        <button onClick={handleSend}>Send</button>
+      </div>
+      <div>
+        <button onClick={handleGet}>Receive</button>
+      </div>
     </div>
   );
 }

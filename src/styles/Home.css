@@ -1,0 +1,25 @@
+.logo {
+  width: 150px; 
+  height: 150px; 
+  margin: 0 auto; 
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  text-align: center;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.button {
+  cursor: pointer;
+}

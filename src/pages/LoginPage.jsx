@@ -10,7 +10,7 @@ function Home() {
   };
 
   const handleCustomer = () => {
-    navigate("/customer");
+    navigate("/login/customer");
   };
 
   return (

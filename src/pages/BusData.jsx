@@ -39,13 +39,16 @@ const BusData = () => {
     const stops = [];
     for (let i = 0; i < numIntermediateStops; i++) {
       stops.push(
-        <input
-          key={i}
-          type="text"
-          value={intermediateStops[i] || ""}
-          onChange={(e) => handleIntermediateStopChange(i, e.target.value)}
-          placeholder={`Intermediate Stop ${i + 1}`}
-        />
+        <div>
+          <h2>Enter intermediate stop {i + 1}</h2>
+          <input
+            key={i}
+            type="text"
+            value={intermediateStops[i] || ""}
+            onChange={(e) => handleIntermediateStopChange(i, e.target.value)}
+            placeholder={`Intermediate Stop ${i + 1}`}
+          />
+        </div>
       );
     }
     return stops;

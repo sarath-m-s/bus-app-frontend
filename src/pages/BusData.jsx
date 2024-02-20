@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/BusData.css";
 
 const BusData = () => {
@@ -8,6 +9,12 @@ const BusData = () => {
   const [endingStop, setEndingStop] = useState("");
   const [numIntermediateStops, setNumIntermediateStops] = useState(0);
   const [intermediateStops, setIntermediateStops] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handleBusBack = () => {
+    navigate("/login");
+  };
 
   const handleSubmit = async () => {
     const busData = {
@@ -54,6 +61,7 @@ const BusData = () => {
 
   return (
     <div className="big-container">
+      <h1 className="bus-data-title">Which is your bus..?</h1>
       <div className="bus-data-container">
         <input
           type="text"
@@ -85,7 +93,14 @@ const BusData = () => {
       </div>
 
       {renderIntermediateStops()}
-      <button className="bus-submit-button" onClick={handleSubmit}>Submit</button>
+      <div className="button-stack">
+        <button className="bus-back" onClick={handleBusBack}>
+          Back
+        </button>
+        <button className="bus-submit-button" onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
     </div>
   );
 };

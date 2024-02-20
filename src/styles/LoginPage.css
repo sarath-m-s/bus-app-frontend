@@ -5,6 +5,11 @@
   gap: 20px;
 }
 
+h2 {
+  font-size: 22px;
+  color: black;
+}
+
 .column1 {
   flex: 1;
   padding: 220px;

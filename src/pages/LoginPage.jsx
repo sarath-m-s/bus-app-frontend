@@ -14,14 +14,26 @@ function Home() {
   };
 
   return (
-    <div className="home-container">
-      <img src={logo} alt="Logo" className="logo" />
-      <h1>Bus Trackie</h1>
-      <div className="driver-button">
-        <button onClick={handleDriver}>Driver</button>
+    <div className="container">
+      <div className="column1">
+        <h2>Login as driver</h2>
+        <p>
+          Are you a bus driver? Login here to enter bus details, update
+          schedules, and manage your routes.
+        </p>
+        <button className="driver-button" onClick={handleDriver}>
+          Driver
+        </button>
       </div>
-      <div className="customer-button">
-        <button onClick={handleCustomer}>Cutomer</button>
+      <div className="column2">
+        <h2>Login as customer</h2>
+        <p>
+          Looking for a bus? Login here to search for bus details, check
+          schedules, and plan your journey.
+        </p>
+        <button className="customer-button" onClick={handleCustomer}>
+          Customer
+        </button>
       </div>
     </div>
   );

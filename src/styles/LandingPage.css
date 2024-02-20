@@ -30,6 +30,7 @@ body {
   line-height: 1.1;
   color: #3FBAC2; /* Light Blue Gray */
   margin-bottom: -10px;
+  text-shadow: 2px 2px 4px #322f2f;
 }
 
 .button {

@@ -40,7 +40,6 @@ const BusData = () => {
     for (let i = 0; i < numIntermediateStops; i++) {
       stops.push(
         <div key={i}>
-          <h2>Enter intermediate stop {i + 1}</h2>
           <input
             type="text"
             value={intermediateStops[i] || ""}
@@ -54,37 +53,39 @@ const BusData = () => {
   };
 
   return (
-    <div>
-      <h2>Enter vehicle number</h2>
-      <input
-        type="text"
-        value={vehicleNumber}
-        onChange={(e) => setVehicleNumber(e.target.value)}
-      />
+    <div className="big-container">
+      <div className="bus-data-container">
+        <input
+          type="text"
+          placeholder="Vehicle number"
+          value={vehicleNumber}
+          onChange={(e) => setVehicleNumber(e.target.value)}
+        />
 
-      <h2>Enter starting stop</h2>
-      <input
-        type="text"
-        value={startingStop}
-        onChange={(e) => setStartingStop(e.target.value)}
-      />
+        <input
+          type="text"
+          placeholder="Starting stop"
+          value={startingStop}
+          onChange={(e) => setStartingStop(e.target.value)}
+        />
 
-      <h2>Enter ending stop</h2>
-      <input
-        type="text"
-        value={endingStop}
-        onChange={(e) => setEndingStop(e.target.value)}
-      />
+        <input
+          type="text"
+          placeholder="Ending stop"
+          value={endingStop}
+          onChange={(e) => setEndingStop(e.target.value)}
+        />
 
-      <h2>Enter number of intermediate stops</h2>
-      <input
-        type="number"
-        value={numIntermediateStops}
-        onChange={(e) => setNumIntermediateStops(parseInt(e.target.value))}
-      />
+        <input
+          type="number"
+          placeholder="No of intermediate stops"
+          value={numIntermediateStops}
+          onChange={(e) => setNumIntermediateStops(parseInt(e.target.value))}
+        />
+      </div>
 
       {renderIntermediateStops()}
-      <button onClick={handleSubmit}>Submit</button>
+      <button className="bus-submit-button" onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

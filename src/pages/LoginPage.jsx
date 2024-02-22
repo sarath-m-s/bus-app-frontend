@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
 
   const handleDriver = () => {
-    navigate("/login/driver");
+    navigate("/admin");
   };
 
   const handleCustomer = () => {

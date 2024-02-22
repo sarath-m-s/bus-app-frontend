@@ -1,0 +1,56 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #1a202c; /* Dark Blue Gray */
+  font-family: "Roboto", sans-serif;
+  color: #edf2f7; /* Light Blue Gray */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* adjust as needed */
+  height: 10%; /* adjust as needed */
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: -3px;
+}
+
+.bus-trackie {
+  font-size: 5em;
+  line-height: 1.1;
+  color: #3FBAC2; /* Light Blue Gray */
+  margin-bottom: -10px;
+  text-shadow: 2px 2px 4px #322f2f;
+}
+
+.button {
+  cursor: pointer;
+  background: #3FBAC2; /* Indigo */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #3FBAC2; /* Dark Indigo */
+}
+
+.description {
+  font-size: 1.5em;
+  line-height: 1.1;
+  color: #D3D4D8; /* Light Blue Gray */
+  margin-bottom: 20px;
+}

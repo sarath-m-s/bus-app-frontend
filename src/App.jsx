@@ -4,11 +4,9 @@ import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import BusData from "./pages/BusData.jsx";
 import Customer from "./pages/Customer.jsx";
-// import Location from "./pages/Location.jsx";
-import Menu from "./pages/Menu.jsx";
 import Admin from "./pages/Admin.jsx";
-import SetData from "./pages/SetData.jsx";
-import GetData from "./pages/GetData.jsx";
+import Select from "./pages/SelectPage.jsx";
+import Enroll from "./pages/EnrollPage.jsx";
 
 function App() {
   return (
@@ -19,10 +17,8 @@ function App() {
         <Route path="/login/driver" element={<BusData />} />
         <Route path="/login/customer" element={<Customer />} />
         <Route path="/admin" element={<Admin />} />
-        {/* <Route path="/login/customer/location" element={<Location />} /> */}
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/set" element={<SetData />} />
-        <Route path="/get" element={<GetData />} />
+        <Route path="/enroll" element={<Enroll />} />
+        <Route path="/select" element={<Select />} />
       </Routes>
     </Router>
   );

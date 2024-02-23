@@ -1,44 +1,26 @@
-// api.js
+export const saveDataToDynamoDB = async (data) => {
+  try {
+    const response = await fetch('your-dynamodb-api-url', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw new Error('Error saving data to DynamoDB: ' + error.message);
+  }
+};
 
-export const enrollNewUser = async (userData) => {
-    try {
-      const response = await fetch('your-enroll-user-api-endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to enroll new user');
-      }
-      
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  };
-  
-  export const searchExistingUser = async (searchData) => {
-    try {
-      const response = await fetch('your-search-user-api-endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(searchData),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to search existing user');
-      }
-  
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  };
-  
+
+export const getEnrolledDataFromDynamoDB = async () => {
+  try {
+    const response = await fetch('your-dynamodb-api-url');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error('Error fetching enrolled data from DynamoDB: ' + error.message);
+  }
+};

@@ -1,52 +1,23 @@
-import React, { useState } from "react";
-import NewUserPopup from "../components/NewUserPopup";
-import ExistingUserPopup from "../components/ExistingUserPopup";
-import { enrollNewUser, searchExistingUser } from "../business/api.js";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Admin = () => {
-  const [showNewUserPopup, setShowNewUserPopup] = useState(false);
-  const [showExistingUserPopup, setShowExistingUserPopup] = useState(false);
+function Admin() {
+  const navigate = useNavigate();
 
-  const handleNewUserClick = () => {
-    setShowNewUserPopup(true);
+  const handleSelect = () => {
+    navigate("/select");
   };
 
-  const handleExistingUserClick = () => {
-    setShowExistingUserPopup(true);
-  };
-
-  const handleNewUserSubmit = (userData) => {
-    enrollNewUser(userData)
-      .then((response) => {
-        console.log("New user enrolled:", response);
-        setShowNewUserPopup(false);
-      })
-      .catch((error) => {
-        console.error("Error enrolling new user:", error);
-      });
-  };
-
-  const handleExistingUserSubmit = (searchData) => {
-    searchExistingUser(searchData)
-      .then((response) => {
-        console.log("Existing user found:", response);
-        setShowExistingUserPopup(false);
-      })
-      .catch((error) => {
-        console.error("Error searching existing user:", error);
-      });
+  const handleEnroll = () => {
+    navigate("/enroll");
   };
 
   return (
     <div>
-      <button onClick={handleNewUserClick}>New user</button>
-      <button onClick={handleExistingUserClick}>Existing user</button>
-      {showNewUserPopup && <NewUserPopup onSubmit={handleNewUserSubmit} />}
-      {showExistingUserPopup && (
-        <ExistingUserPopup onSubmit={handleExistingUserSubmit} />
-      )}
+      <button onClick={handleEnroll}>Enroll</button>
+      <button onClick={handleSelect}>Select</button>
     </div>
   );
-};
+}
 
 export default Admin;

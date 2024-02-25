@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const InputField = ({ label, value, onChange }) => {
+const InputField = ({ label, name, value, onChange }) => {
   return (
     <div>
       <label>{label}</label>
-      <input type="text" value={value} onChange={onChange} />
+      <input type="text" name={name} value={value} onChange={onChange} />
     </div>
   );
 };

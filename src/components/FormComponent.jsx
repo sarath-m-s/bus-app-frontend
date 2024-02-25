@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import InputField from "./InputField";
-import { validateForm } from "../utils/validation"; // Import the validateForm function
+import InputField from "../components/InputField";
+import { validateForm } from "../utils/validation";
+import { saveVehicleData, saveDriverData, saveRouteData } from "../services/api";
+import "../styles/FormComponent.css";
 
-const FormComponent = () => {
+function FormComponent() {
   const [formData, setFormData] = useState({
     registrationNumber: "",
     privateOrGovernment: "",
@@ -21,6 +23,7 @@ const FormComponent = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Updating ${name} with value: ${value}`);
     setFormData({ ...formData, [name]: value });
   };
 
@@ -33,7 +36,14 @@ const FormComponent = () => {
     setFormData({ ...formData, intermediateStops });
   };
 
-  const handleSubmit = async () => {
+  const handleStopChange = (e, index) => {
+    const newStops = [...formData.intermediateStops];
+    newStops[index] = e.target.value;
+    setFormData(prevState => ({ ...prevState, intermediateStops: newStops }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const validationResult = validateForm(formData); // Validate form data
     if (!validationResult.isValid) {
       setError(validationResult.error); // Set validation error if any
@@ -69,6 +79,7 @@ const FormComponent = () => {
       // Reset form or show success message
     } catch (error) {
       console.error("Error saving data: ", error);
+      setError("Error saving data. Please try again.");
     }
   };
 
@@ -83,49 +94,49 @@ const FormComponent = () => {
       <InputField
         label="Private or Government"
         name="privateOrGovernment"
-        value={formData.registrationNumber}
+        value={formData.privateOrGovernment}
         onChange={handleChange}
       />
       <InputField
         label="Driver name"
         name="driverName"
-        value={formData.registrationNumber}
+        value={formData.driverName}
         onChange={handleChange}
       />
       <InputField
         label="Contact number"
         name="contactNumber"
-        value={formData.registrationNumber}
+        value={formData.contactNumber}
         onChange={handleChange}
       />
       <InputField
         label="License number"
         name="licenseNumber"
-        value={formData.registrationNumber}
+        value={formData.licenseNumber}
         onChange={handleChange}
       />
       <InputField
         label="Organization"
         name="organization"
-        value={formData.registrationNumber}
+        value={formData.organization}
         onChange={handleChange}
       />
       <InputField
         label="Address"
         name="address"
-        value={formData.registrationNumber}
+        value={formData.address}
         onChange={handleChange}
       />
       <InputField
         label="Route starts from"
         name="routeStartsFrom"
-        value={formData.registrationNumber}
+        value={formData.routeStartsFrom}
         onChange={handleChange}
       />
       <InputField
         label="Route ends at"
         name="routeEndsAt"
-        value={formData.registrationNumber}
+        value={formData.routeEndsAt}
         onChange={handleChange}
       />
 
@@ -142,13 +153,14 @@ const FormComponent = () => {
           key={index}
           label={`Intermediate Stop ${index + 1}`}
           value={stop}
-          onChange={(e) => handleChangeIntermediateStop(e, index)}
+          onChange={(e) => handleStopChange(e, index)}
         />
       ))}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
-};
+}
 
 export default FormComponent;

@@ -1,26 +1,22 @@
-const BASE_URL = 'YOUR_API_BASE_URL';
+import axios from 'axios';
 
-const sendFormData = async (data) => {
-  try {
-    // Send data to DynamoDB via API
-    const response = await fetch(`${BASE_URL}/endpoint`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+// Define your API base URL
+const API_BASE_URL = 'http://localhost:3000';
 
-    if (!response.ok) {
-      throw new Error('Error sending data to server');
-    }
+// Function to save vehicle data
+export async function saveVehicleData(data) {
+  const response = await axios.post(`${API_BASE_URL}/api/vehicle`, data);
+  return response.data;
+}
 
-    const responseData = await response.json();
-    return responseData;
-  } catch (error) {
-    console.error('API Error:', error.message);
-    throw error;
-  }
-};
+// Function to save driver data
+export async function saveDriverData(data) {
+  const response = await axios.post(`${API_BASE_URL}/api/driver`, data);
+  return response.data;
+}
 
-export { sendFormData };
+// Function to save route data
+export async function saveRouteData(data) {
+  const response = await axios.post(`${API_BASE_URL}/api/route`, data);
+  return response.data;
+}

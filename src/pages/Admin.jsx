@@ -4,18 +4,18 @@ import { useNavigate } from "react-router-dom";
 function Admin() {
   const navigate = useNavigate();
 
-  // const handleSelect = () => {
-  //   navigate("/select");
-  // };
+  const handleStart = () => {
+    navigate("/start");
+  };
 
   const handleEnroll = () => {
-    navigate("/enroll");
+    navigate("/admin/enrol");
   };
 
   return (
     <div>
       <button onClick={handleEnroll}>Enroll</button>
-      {/* <button onClick={handleSelect}>Select</button> */}
+      <button onClick={handleStart}>Start a trip</button>
     </div>
   );
 }

@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 function Admin() {
   const navigate = useNavigate();
 
-  const handleSelect = () => {
-    navigate("/select");
-  };
+  // const handleSelect = () => {
+  //   navigate("/select");
+  // };
 
   const handleEnroll = () => {
     navigate("/enroll");
@@ -15,7 +15,7 @@ function Admin() {
   return (
     <div>
       <button onClick={handleEnroll}>Enroll</button>
-      <button onClick={handleSelect}>Select</button>
+      {/* <button onClick={handleSelect}>Select</button> */}
     </div>
   );
 }

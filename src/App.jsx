@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import BusData from "./pages/BusData.jsx";
 import Customer from "./pages/Customer.jsx";
 import Admin from "./pages/Admin.jsx";
-import Select from "./pages/SelectPage.jsx";
+// import Select from "./pages/SelectPage.jsx";
 import Enroll from "./pages/EnrollPage.jsx";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/login/customer" element={<Customer />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/enroll" element={<Enroll />} />
-        <Route path="/select" element={<Select />} />
+        {/* <Route path="/select" element={<Select />} /> */}
       </Routes>
     </Router>
   );

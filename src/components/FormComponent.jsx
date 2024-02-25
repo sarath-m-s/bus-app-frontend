@@ -93,7 +93,7 @@ const FormComponent = () => {
         onChange={handleChange}
       />
       <InputField
-        label="COntact number"
+        label="Contact number"
         name="contactNumber"
         value={formData.registrationNumber}
         onChange={handleChange}

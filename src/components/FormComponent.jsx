@@ -49,7 +49,7 @@ function FormComponent() {
   const handleStopChange = (e, index) => {
     const newStops = [...formData.intermediateStops];
     newStops[index] = e.target.value;
-    setFormData(prevState => ({ ...prevState, intermediateStops: newStops }));
+    setFormData((prevState) => ({ ...prevState, intermediateStops: newStops }));
   };
 
   const handleSubmit = async (e) => {
@@ -60,21 +60,20 @@ function FormComponent() {
       return;
     }
 
+    const formatStops = (stops) => {
+      return stops.map((stop, index) => {
+        return {
+          stopNumber: index + 1,
+          stopName: stop,
+        };
+      });
+    };
     setError(null); // Reset error state
     const busData = {
       bus_name: formData.busName,
       registration_number: formData.registrationNumber,
       bus_type: formData.privateOrGovernment,
     };
-
-    const formatStops = (stops) => { 
-      return stops.map((stop, index) => {
-        return {
-          stopNumber: index + 1,
-          stopName: stop
-        };
-      });
-    }
 
     const driverData = {
       driverName: formData.driverName,
@@ -88,7 +87,7 @@ function FormComponent() {
       routeStartsFrom: formData.routeStartsFrom,
       routeEndsAt: formData.routeEndsAt,
       numberOfIntermediateStops: formData.numberOfIntermediateStops,
-      intermediateStops: formatStops(formData.intermediateStops)
+      intermediateStops: formatStops(formData.intermediateStops),
     };
 
     try {

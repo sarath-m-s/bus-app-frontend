@@ -6,6 +6,8 @@ import BusData from "./pages/BusData.jsx";
 import Customer from "./pages/Customer.jsx";
 import Admin from "./pages/Admin.jsx";
 import EnrolMenu from "./pages/EnrolMenu.jsx";
+import BusEnrol from "./pages/BusEnrol.jsx";  
+import DriverEnrol from "./pages/DriverEnrol.jsx";
 // import Select from "./pages/SelectPage.jsx";
 // import Enroll from "./pages/EnrollPage.jsx";
 
@@ -19,6 +21,8 @@ function App() {
         <Route path="/login/customer" element={<Customer />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/enrol" element={<EnrolMenu />} />
+        <Route path="/admin/enrol/bus" element={<BusEnrol />} />
+        <Route path="/admin/enrol/driver" element={<DriverEnrol />} />
         {/* <Route path="/enroll" element={<Enroll />} /> */}
         {/* <Route path="/select" element={<Select />} /> */}
       </Routes>

@@ -87,7 +87,7 @@ function FormComponent() {
       routeStartsFrom: formData.routeStartsFrom,
       routeEndsAt: formData.routeEndsAt,
       numberOfIntermediateStops: formData.numberOfIntermediateStops,
-      intermediateStops: formatStops(formData.intermediateStops),
+      intermediateStops: formatStops(formData.intermediateStops)
     };
 
     try {

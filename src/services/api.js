@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ENROL_BUS_API_ENDPOINT } from '../helper/constants.js';
 import { ENROL_DRIVER_API_ENDPOINT } from '../helper/constants.js';
+import {ENROL_ROUTE_API_ENDPOINT } from '../helper/constants.js'
 
 // Function to save bus data
 export async function saveBusData(data) {
@@ -19,6 +20,6 @@ export async function saveDriverData(data) {
 // Function to save route data
 export async function saveRouteData(data) {
   console.log('save route data', data);
-  // const response = await axios.post(`${API_BASE_URL}/api/route`, data);
+  const response = await axios.post(ENROL_ROUTE_API_ENDPOINT, data);
   return;
 }

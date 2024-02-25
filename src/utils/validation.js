@@ -18,7 +18,6 @@ const validateForm = (formData) => {
       !contactNumber ||
       !routeStartsFrom ||
       !routeEndsAt ||
-      !numOfIntermediateStops ||
       !intermediateStops.every(stop => stop !== '')
     ) {
       return {

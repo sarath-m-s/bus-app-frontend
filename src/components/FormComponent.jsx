@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import InputField from "../components/InputField";
 import { validateForm } from "../utils/validation";
-import { saveVehicleData, saveDriverData, saveRouteData } from "../services/api";
+import { saveBusData, saveDriverData, saveRouteData } from "../services/api";
 import "../styles/FormComponent.css";
 
 function FormComponent() {
   const [formData, setFormData] = useState({
+    busName: "",
     registrationNumber: "",
     privateOrGovernment: "",
     driverName: "",
@@ -27,12 +28,21 @@ function FormComponent() {
     setFormData({ ...formData, [name]: value });
   };
 
+  // const handleIntermediateStopChange = (e) => {
+  //   const intermediateStops = [];
+  //   const num = parseInt(e.target.value);
+  //   for (let i = 0; i < num; i++) {
+  //     intermediateStops.push("");
+  //   }
+  //   setFormData({ ...formData, intermediateStops });
+  // };
   const handleIntermediateStopChange = (e) => {
-    const intermediateStops = [];
-    const num = parseInt(e.target.value);
-    for (let i = 0; i < num; i++) {
-      intermediateStops.push("");
+    const num = parseInt(e.target.value, 10);
+    if (isNaN(num)) {
+      console.error("Invalid number of intermediate stops: ", e.target.value);
+      return;
     }
+    const intermediateStops = new Array(num).fill("");
     setFormData({ ...formData, intermediateStops });
   };
 
@@ -47,33 +57,42 @@ function FormComponent() {
     const validationResult = validateForm(formData); // Validate form data
     if (!validationResult.isValid) {
       setError(validationResult.error); // Set validation error if any
-
       return;
     }
 
     setError(null); // Reset error state
-    const vehicleData = {
-      registrationNumber: form.registrationNumber,
-      privateOrGovernment: form.privateOrGovernment,
+    const busData = {
+      bus_name: formData.busName,
+      registration_number: formData.registrationNumber,
+      bus_type: formData.privateOrGovernment,
     };
 
+    const formatStops = (stops) => { 
+      return stops.map((stop, index) => {
+        return {
+          stopNumber: index + 1,
+          stopName: stop
+        };
+      });
+    }
+
     const driverData = {
-      driverName: form.driverName,
-      contactNumber: form.contactNumber,
-      licenseNumber: form.licenseNumber,
-      organization: form.organization,
-      address: form.address,
+      driverName: formData.driverName,
+      contactNumber: formData.contactNumber,
+      licenseNumber: formData.licenseNumber,
+      organization: formData.organization,
+      address: formData.address,
     };
 
     const routeData = {
-      routeStartsFrom: form.routeStartsFrom,
-      routeEndsAt: form.routeEndsAt,
-      numberOfIntermediateStops: form.numberOfIntermediateStops,
-      intermediateStops: form.intermediateStops,
+      routeStartsFrom: formData.routeStartsFrom,
+      routeEndsAt: formData.routeEndsAt,
+      numberOfIntermediateStops: formData.numberOfIntermediateStops,
+      intermediateStops: formatStops(formData.intermediateStops)
     };
 
     try {
-      await saveVehicleData(vehicleData);
+      await saveBusData(busData);
       await saveDriverData(driverData);
       await saveRouteData(routeData);
       // Reset form or show success message
@@ -85,6 +104,12 @@ function FormComponent() {
 
   return (
     <div>
+      <InputField
+        label="Bus Name"
+        name="busName"
+        value={formData.busName}
+        onChange={handleChange}
+      />
       <InputField
         label="Registration number"
         name="registrationNumber"

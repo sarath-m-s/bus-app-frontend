@@ -25,7 +25,7 @@ const handleIntermediateStopChange = (e) => {
         return;
     }
     const stops = new Array(num).fill("");
-    setRouteFormData({ ...routeFormData, stops });
+    setRouteFormData({ ...routeFormData, numOfIntermediateStops: e.target.value, stops });
 };
 
   const handleStopChange = (e, index) => {
@@ -59,6 +59,7 @@ const handleIntermediateStopChange = (e) => {
         number_of_stops: routeFormData.numOfIntermediateStops,
         stops: formatStops(routeFormData.stops)
         };
+        console.log("Route data: ", routeData);
 
     try {
       await saveRouteData(routeData);

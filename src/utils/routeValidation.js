@@ -1,14 +1,14 @@
 const routeValidateForm = (routeFormData) => {
     const {
         routeName,
-        numberOfIntermediateStops,
+        numOfIntermediateStops,
         stops
     } = routeFormData;
 
     // Check if mandatory fields are filled
     if (
-        !routeName ||
-        !numberOfIntermediateStops ||
+        routeName === '' ||
+        numOfIntermediateStops == null ||
         !stops.every(stop => stop !== '')
     ) {
         return {

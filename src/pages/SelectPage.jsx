@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { getEnrolledDataFromDynamoDB } from '../business/api'; 
+import axios from 'axios'; // Assuming you're using axios for API calls
 
 function SelectPage() {
   const [enrolledData, setEnrolledData] = useState({ buses: [], drivers: [], routes: [] });
+  const [selectedData, setSelectedData] = useState({ bus: '', driver: '', route: '' });
 
   useEffect(() => {
-    fetchData();
+    // Fetch data from the APIs when the component mounts
+    axios.get('/api/buses').then(res => setEnrolledData(prev => ({ ...prev, buses: res.data })));
+    axios.get('/api/drivers').then(res => setEnrolledData(prev => ({ ...prev, drivers: res.data })));
+    axios.get('/api/routes').then(res => setEnrolledData(prev => ({ ...prev, routes: res.data })));
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const data = await getEnrolledDataFromDynamoDB();
-      setEnrolledData(data);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    }
+  const handleSelection = (e) => {
+    setSelectedData({ ...selectedData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    axios.post('/api/save', selectedData);
   };
 
   return (
@@ -22,31 +25,32 @@ function SelectPage() {
       <h2>Select Page</h2>
       <div>
         <label>Select Bus:</label>
-        <select>
+        <select name="bus" onChange={handleSelection}>
           <option disabled selected>Select Bus</option>
           {enrolledData.buses.map((bus, index) => (
-            <option key={index}>{bus}</option>
+            <option key={index} value={bus.bus_name}>{bus.bus_name}</option>
           ))}
         </select>
       </div>
       <div>
         <label>Select Driver:</label>
-        <select>
+        <select name="driver" onChange={handleSelection}>
           <option disabled selected>Select Driver</option>
           {enrolledData.drivers.map((driver, index) => (
-            <option key={index}>{driver}</option>
+            <option key={index} value={driver.driver_name}>{driver.driver_name}</option>
           ))}
         </select>
       </div>
       <div>
         <label>Select Route:</label>
-        <select>
+        <select name="route" onChange={handleSelection}>
           <option disabled selected>Select Route</option>
           {enrolledData.routes.map((route, index) => (
-            <option key={index}>{route}</option>
+            <option key={index} value={route.route_name}>{route.route_name}</option>
           ))}
         </select>
       </div>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

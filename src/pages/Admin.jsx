@@ -5,7 +5,7 @@ function Admin() {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate("/start");
+    navigate("/admin/select");
   };
 
   const handleEnroll = () => {

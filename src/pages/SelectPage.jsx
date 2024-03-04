@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Assuming you're using axios for API calls
+import axios from "axios";
 import {
   GET_ALL_BUS_DETAILS_API_ENDPOINT,
   GET_ALL_DRIVER_DETAILS_API_ENDPOINT,
@@ -39,24 +39,26 @@ function SelectPage() {
   const handleSelection = (event) => {
     const { name, value } = event.target;
     const parsedValue = JSON.parse(value);
-    setSelectedData(prev => ({ ...prev, [name]: parsedValue }));
+    setSelectedData((prev) => ({ ...prev, [name]: parsedValue }));
   };
 
   const handleSubmit = () => {
+    console.log(selectedData);
     const dataToSubmit = {
       bus_id: selectedData.bus.id,
       driver_id: selectedData.driver.id,
       route_id: selectedData.route.id,
     };
-    axios.post(ASSOCIATE_API_ENDPOINT, dataToSubmit)
-      .then(response => {
+    console.log(dataToSubmit);
+    axios
+      .post(ASSOCIATE_API_ENDPOINT, dataToSubmit)
+      .then((response) => {
         console.log(response);
       })
-      .catch(error => {
-        console.error('There was an error!', error);
+      .catch((error) => {
+        console.error("There was an error!", error);
       });
   };
-  
 
   return (
     <div>
@@ -67,13 +69,15 @@ function SelectPage() {
           value={JSON.stringify(selectedData.bus)}
           onChange={handleSelection}
         >
-          <option disabled value="">
+          <option value={JSON.stringify({})} disabled>
             Select Bus
           </option>
           {enrolledData.buses.map((bus, index) => (
             <option
               key={index}
-              value={JSON.stringify({ name: bus.bus_name, id: bus.bus_id })}
+              value={JSON.stringify({ 
+                name: bus.bus_name, 
+                id: bus.bus_id })}
             >
               {bus.bus_name}
             </option>
@@ -82,29 +86,49 @@ function SelectPage() {
       </div>
       <div>
         <label>Select Driver:</label>
-        <select name="driver" value={JSON.stringify(selectedData.driver)} onChange={handleSelection}>
-  <option disabled value="">
-    Select Driver
-  </option>
-  {enrolledData.drivers.map((driver, index) => (
-    <option key={index} value={JSON.stringify({ name: driver.driver_name, id: driver.driver_id })}>
-      {driver.driver_name}
-    </option>
-  ))}
-</select>
+        <select
+          name="driver"
+          value={JSON.stringify(selectedData.driver)}
+          onChange={handleSelection}
+        >
+          <option value="" disabled>
+            Select Driver
+          </option>
+          {enrolledData.drivers.map((driver, index) => (
+            <option
+              key={index}
+              value={JSON.stringify({
+                name: driver.driver_name,
+                id: driver.driver_id,
+              })}
+            >
+              {driver.driver_name}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label>Select Route:</label>
-        <select name="route" value={JSON.stringify(selectedData.route)} onChange={handleSelection}>
-  <option disabled value="">
-    Select Route
-  </option>
-  {enrolledData.routes.map((route, index) => (
-    <option key={index} value={JSON.stringify({ name: route.route_name, id: route.route_id })}>
-      {route.route_name}
-    </option>
-  ))}
-</select>
+        <select
+          name="route"
+          value={JSON.stringify(selectedData.route)}
+          onChange={handleSelection}
+        >
+          <option disabled value="">
+            Select Route
+          </option>
+          {enrolledData.routes.map((route, index) => (
+            <option
+              key={index}
+              value={JSON.stringify({
+                name: route.route_name,
+                id: route.route_id,
+              })}
+            >
+              {route.route_name}
+            </option>
+          ))}
+        </select>
       </div>
       <button onClick={handleSubmit}>Submit</button>
     </div>

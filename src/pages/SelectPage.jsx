@@ -5,6 +5,7 @@ import {
   GET_ALL_DRIVER_DETAILS_API_ENDPOINT,
   GET_ALL_ROUTE_DETAILS_API_ENDPOINT,
   ASSOCIATE_API_ENDPOINT,
+  SAVE_LOCATION_API_ENDPOINT,
 } from "../helper/constants.js";
 
 function SelectPage() {
@@ -54,6 +55,24 @@ function SelectPage() {
       .post(ASSOCIATE_API_ENDPOINT, dataToSubmit)
       .then((response) => {
         console.log(response);
+
+        // Only send the hardcodedPayload if the first request was successful
+        const hardcodedPayload = {
+          bus_id: selectedData.bus.id,
+          geo_location: {
+            lat: "10.55377",
+            lng: "76.22359",
+          }
+        };
+        console.log(hardcodedPayload);
+        axios
+          .post(SAVE_LOCATION_API_ENDPOINT, hardcodedPayload)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
       })
       .catch((error) => {
         console.error("There was an error!", error);
@@ -75,9 +94,10 @@ function SelectPage() {
           {enrolledData.buses.map((bus, index) => (
             <option
               key={index}
-              value={JSON.stringify({ 
-                name: bus.bus_name, 
-                id: bus.bus_id })}
+              value={JSON.stringify({
+                name: bus.bus_name,
+                id: bus.bus_id,
+              })}
             >
               {bus.bus_name}
             </option>
@@ -91,7 +111,7 @@ function SelectPage() {
           value={JSON.stringify(selectedData.driver)}
           onChange={handleSelection}
         >
-          <option value="" disabled>
+          <option value={JSON.stringify({})} disabled>
             Select Driver
           </option>
           {enrolledData.drivers.map((driver, index) => (
@@ -114,7 +134,7 @@ function SelectPage() {
           value={JSON.stringify(selectedData.route)}
           onChange={handleSelection}
         >
-          <option disabled value="">
+          <option value={JSON.stringify({})} disabled>
             Select Route
           </option>
           {enrolledData.routes.map((route, index) => (

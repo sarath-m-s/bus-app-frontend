@@ -1,0 +1,38 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 20px;
+  padding: 40px;
+  padding-right: 60px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin-right: auto;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #3d3d3d;
+  text-align: left;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+label {
+  color: #373737;
+}
+
+.driver-enrol-container {
+  display: flex;
+  background-color: #f8f9fa;
+  gap: 120px;
+  margin-left: 24px;
+}

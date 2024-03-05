@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import InputField from "../components/InputField.jsx";
 import { saveBusData } from "../services/api.js";
 import { busValidateForm } from "../utils/busValidation.js";
+import "../styles/BusEnrol.css";
+import { useNavigate } from "react-router-dom";
 
 function BusEnrol() {
   const [busFormData, setbusFormData] = useState({
@@ -11,6 +13,7 @@ function BusEnrol() {
   });
 
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +42,12 @@ function BusEnrol() {
       console.error("Error saving data: ", error);
       setError("Error saving data. Please try again.");
     }
+
+    navigate("/admin/select");
+  };
+
+  const handleBack = () => {
+    navigate("/admin/enrol");
   };
 
   return (
@@ -66,7 +75,10 @@ function BusEnrol() {
           onChange={handleChange}
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Submit</button>
+        <div className="bus-enrol-container">
+          <button type="reset" onClick={handleBack}>Back</button>
+          <button type="submit" onClick={handleSubmit}>Submit</button>
+        </div>
       </form>
     </div>
   );

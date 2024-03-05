@@ -7,6 +7,8 @@ import {
   ASSOCIATE_API_ENDPOINT,
   SAVE_LOCATION_API_ENDPOINT,
 } from "../helper/constants.js";
+import { useNavigate } from "react-router-dom";
+import "../styles/SelectPage.css";
 
 function SelectPage() {
   const [enrolledData, setEnrolledData] = useState({
@@ -19,6 +21,7 @@ function SelectPage() {
     driver: "",
     route: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -61,7 +64,7 @@ function SelectPage() {
           geo_location: {
             lat: "10.55377",
             lng: "76.22359",
-          }
+          },
         };
         console.log(hardcodedPayload);
         axios
@@ -77,81 +80,91 @@ function SelectPage() {
         console.error("There was an error!", error);
       });
   };
+  const handleBack = () => {
+    navigate("/admin");
+}
+
+
 
   return (
     <div>
-      <div>
-        <label>Select Bus:</label>
-        <select
-          name="bus"
-          value={JSON.stringify(selectedData.bus)}
-          onChange={handleSelection}
-        >
-          <option value={JSON.stringify({})} disabled>
-            Select Bus
-          </option>
-          {enrolledData.buses.map((bus, index) => (
-            <option
-              key={index}
-              value={JSON.stringify({
-                name: bus.bus_name,
-                id: bus.bus_id,
-              })}
-            >
-              {bus.bus_name}
+      <div className="select-container">
+        <div>
+          <label>Bus:</label>
+          <select
+            name="bus"
+            value={JSON.stringify(selectedData.bus)}
+            onChange={handleSelection}
+          >
+            <option value={JSON.stringify({})} disabled>
+              Select Bus
             </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label>Select Driver:</label>
-        <select
-          name="driver"
-          value={JSON.stringify(selectedData.driver)}
-          onChange={handleSelection}
-        >
-          <option value={JSON.stringify({})} disabled>
-            Select Driver
-          </option>
-          {enrolledData.drivers.map((driver, index) => (
-            <option
-              key={index}
-              value={JSON.stringify({
-                name: driver.driver_name,
-                id: driver.driver_id,
-              })}
-            >
-              {driver.driver_name}
+            {enrolledData.buses.map((bus, index) => (
+              <option
+                key={index}
+                value={JSON.stringify({
+                  name: bus.bus_name,
+                  id: bus.bus_id,
+                })}
+              >
+                {bus.bus_name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Driver:</label>
+          <select
+            name="driver"
+            value={JSON.stringify(selectedData.driver)}
+            onChange={handleSelection}
+          >
+            <option value={JSON.stringify({})} disabled>
+              Select Driver
             </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label>Select Route:</label>
-        <select
-          name="route"
-          value={JSON.stringify(selectedData.route)}
-          onChange={handleSelection}
-        >
-          <option value={JSON.stringify({})} disabled>
-            Select Route
-          </option>
-          {enrolledData.routes.map((route, index) => (
-            <option
-              key={index}
-              value={JSON.stringify({
-                name: route.route_name,
-                id: route.route_id,
-              })}
-            >
-              {route.route_name}
+            {enrolledData.drivers.map((driver, index) => (
+              <option
+                key={index}
+                value={JSON.stringify({
+                  name: driver.driver_name,
+                  id: driver.driver_id,
+                })}
+              >
+                {driver.driver_name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Route:</label>
+          <select
+            name="route"
+            value={JSON.stringify(selectedData.route)}
+            onChange={handleSelection}
+          >
+            <option value={JSON.stringify({})} disabled>
+              Select Route
             </option>
-          ))}
-        </select>
+            {enrolledData.routes.map((route, index) => (
+              <option
+                key={index}
+                value={JSON.stringify({
+                  name: route.route_name,
+                  id: route.route_id,
+                })}
+              >
+                {route.route_name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-      <button onClick={handleSubmit}>Submit</button>
+      <div className="select-button">
+        <button onclick={handleBack}>Back</button>
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
     </div>
   );
-}
+};
 
 export default SelectPage;

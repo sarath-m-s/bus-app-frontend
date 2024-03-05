@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import InputField from "../components/InputField.jsx";
 import { saveDriverData } from "../services/api.js";
 import { driverValidateForm } from "../utils/driverValidation.js";
+import "../styles/DriverEnrol.css";
+import { useNavigate } from "react-router-dom";
 
 function DriverEnrol() {
+  const navigate = useNavigate();
   const [driverFormData, setDriverFormData] = useState({
     driverName: "",
     contactNumber: "",
@@ -45,6 +48,12 @@ function DriverEnrol() {
       console.error("Error saving data: ", error);
       setError("Error saving data. Please try again.");
     }
+
+    navigate("/admin/select");
+  };
+
+  const handleBack = () => {
+    navigate("/admin/enrol");
   };
 
   return (
@@ -85,7 +94,14 @@ function DriverEnrol() {
           value={driverFormData.address}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <div className="driver-enrol-container">
+          <button className="driver-back" type="reset" onClick={handleBack}>
+            Back
+          </button>
+          <button className="driver-submit" type="submit">
+            Submit
+          </button>
+        </div>
       </form>
       {error && <p className="error">{error}</p>}
     </div>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import InputField from "../components/InputField.jsx";
 import { saveRouteData } from "../services/api.js";
 import { routeValidateForm } from "../utils/routeValidation.js";
+import { useNavigate } from "react-router-dom";
+import "../styles/RouteEnrol.css";
 
 function RouteEnrol() {
     const [routeFormData, setRouteFormData] = useState({
@@ -11,6 +13,7 @@ function RouteEnrol() {
     });
 
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +71,13 @@ const handleIntermediateStopChange = (e) => {
       console.error("Error saving data: ", error);
       setError("Error saving data. Please try again.");
     }
+
+    navigate("/admin/select");
   };
+
+  const handleBack = () => {
+    navigate("/admin/enrol");
+  }
 
   return (
     <div>
@@ -106,7 +115,10 @@ const handleIntermediateStopChange = (e) => {
             />
           );
         })}
+        <div className="route-enrol-container">
+        <button type="reset" onClick={handleBack}>Back</button>
         <button type="submit">Submit</button>
+        </div>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>

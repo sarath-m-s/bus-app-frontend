@@ -21,7 +21,6 @@ function SelectPage() {
   });
 
   useEffect(() => {
-    // Fetch data from the APIs when the component mounts
     axios
       .get(GET_ALL_BUS_DETAILS_API_ENDPOINT)
       .then((res) => setEnrolledData((prev) => ({ ...prev, buses: res.data })));

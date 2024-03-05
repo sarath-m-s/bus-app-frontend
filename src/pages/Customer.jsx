@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Customer.css";
+import { GET_ALL_ROUTE_DETAILS_API_ENDPOINT } from "../helper/constants.js";
 import { useNavigate } from "react-router-dom";
 
 const Customer = () => {
@@ -17,21 +18,37 @@ const Customer = () => {
   useEffect(() => {
     const fetchBusStops = async () => {
       try {
-        const response = await axios.get("https://your-api-endpoint.com");
+        const response = await axios.get(GET_ALL_ROUTE_DETAILS_API_ENDPOINT);
+        console.log(response.data);  
         setBusStops(response.data);
       } catch (error) {
         console.error("Error fetching bus stops from DynamoDB", error);
       }
     };
-
+  
     fetchBusStops();
   }, []);
 
   const handleSubmit = () => {
-    const filteredBuses = busStops.filter(
-      (busStop) => busStop === from || busStop === to
+    const fromStop = busStops.find((busStop) =>
+      busStop.stops && busStop.stops.S && busStop.stops.S.find((stop) => stop.M.stopName.S === from)
     );
-    setBusList(filteredBuses);
+    const toStop = busStops.find((busStop) =>
+      busStop.stops && busStop.stops.S && busStop.stops.S.find((stop) => stop.M.stopName.S === to)
+    );
+  
+    if (
+      fromStop &&
+      toStop &&
+      fromStop.stops && fromStop.stops.S && fromStop.stops.S[0] &&
+      toStop.stops && toStop.stops.S && toStop.stops.S[0] &&
+      Number(fromStop.stops.S[0].M.stopNumber.N) <
+        Number(toStop.stops.S[0].M.stopNumber.N)
+    ) {
+      setBusList([fromStop.route_id.S]);
+    } else {
+      setBusList([]);
+    }
   };
 
   return (
@@ -59,7 +76,9 @@ const Customer = () => {
       <button className="btn btn-primary" onClick={handleSubmit}>
         Submit
       </button>
-      <button className="back" onClick={handleBack}>Back</button>
+      <button className="back" onClick={handleBack}>
+        Back
+      </button>
       <ul>
         {busList.map((bus, index) => (
           <li key={index}>{bus}</li>

@@ -1,15 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import BusData from "./pages/BusData.jsx";
 import Customer from "./pages/Customer.jsx";
 import Admin from "./pages/Admin.jsx";
 import EnrolMenu from "./pages/EnrolMenu.jsx";
-import BusEnrol from "./pages/BusEnrol.jsx";  
+import BusEnrol from "./pages/BusEnrol.jsx";
 import DriverEnrol from "./pages/DriverEnrol.jsx";
 import RouteEnrol from "./pages/RouteEnrol.jsx";
 import SelectPage from "./pages/SelectPage.jsx";
+import Location from "./pages/Location.jsx";
 // import Select from "./pages/SelectPage.jsx";
 // import Enroll from "./pages/EnrollPage.jsx";
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login/location" element={<Location />} />
         <Route path="/login/driver" element={<BusData />} />
         <Route path="/login/customer" element={<Customer />} />
         <Route path="/admin" element={<Admin />} />

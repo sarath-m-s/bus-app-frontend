@@ -4,4 +4,8 @@
   gap: 141px;
   margin-left: 54px;
 }
-```
+
+.route-enrol-button {
+  display: flex;
+  gap: 185px;
+}

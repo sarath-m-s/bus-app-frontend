@@ -88,7 +88,7 @@ function SelectPage() {
 
   return (
     <div>
-      <div className="select-container">
+      <div className="selectPage-container">
         <div>
           <label>Bus:</label>
           <select
@@ -160,7 +160,7 @@ function SelectPage() {
         </div>
       </div>
       <div className="select-button">
-        <button onclick={handleBack}>Back</button>
+        <button onClick={handleBack}>Back</button>
         <button onClick={handleSubmit}>Submit</button>
       </div>
     </div>

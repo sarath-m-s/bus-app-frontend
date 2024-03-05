@@ -13,15 +13,15 @@ function Admin() {
     navigate("/admin/enrol");
   };
 
-  // const handleBack = () => {
-  //   navigate("/login");
-  // };
+  const handleBack = () => {
+    navigate("/login");
+  };
 
   return (
     <div>
-      {/* <div className="admin-back">
+      <div className="admin-back">
         <button onClick={handleBack}>Back</button>
-      </div> */}
+      </div>
       <div className="admin-container">
         <div className="enrol-container">
           <h1>Enrolment</h1>

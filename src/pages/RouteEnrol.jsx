@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 import "../styles/RouteEnrol.css";
 
 function RouteEnrol() {
-    const [routeFormData, setRouteFormData] = useState({
-        routeName: "",
-        numOfIntermediateStops: "",
-        stops: [],
-    });
+  const [routeFormData, setRouteFormData] = useState({
+    routeName: "",
+    numOfIntermediateStops: "",
+    stops: [],
+  });
 
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -21,15 +21,19 @@ function RouteEnrol() {
     setRouteFormData({ ...routeFormData, [name]: value });
   };
 
-const handleIntermediateStopChange = (e) => {
+  const handleIntermediateStopChange = (e) => {
     const num = parseInt(e.target.value, 10);
     if (isNaN(num)) {
-        console.error("Invalid number of intermediate stops: ", e.target.value);
-        return;
+      console.error("Invalid number of intermediate stops: ", e.target.value);
+      return;
     }
     const stops = new Array(num).fill("");
-    setRouteFormData({ ...routeFormData, numOfIntermediateStops: e.target.value, stops });
-};
+    setRouteFormData({
+      ...routeFormData,
+      numOfIntermediateStops: e.target.value,
+      stops,
+    });
+  };
 
   const handleStopChange = (e, index) => {
     const newStops = [...routeFormData.stops];
@@ -46,7 +50,6 @@ const handleIntermediateStopChange = (e) => {
     });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Route form data: ", routeFormData);
@@ -58,11 +61,11 @@ const handleIntermediateStopChange = (e) => {
 
     setError(null); // Reset error state
     const routeData = {
-        route_name: routeFormData.routeName,
-        number_of_stops: routeFormData.numOfIntermediateStops,
-        stops: formatStops(routeFormData.stops)
-        };
-        console.log("Route data: ", routeData);
+      route_name: routeFormData.routeName,
+      number_of_stops: routeFormData.numOfIntermediateStops,
+      stops: formatStops(routeFormData.stops),
+    };
+    console.log("Route data: ", routeData);
 
     try {
       await saveRouteData(routeData);
@@ -77,7 +80,7 @@ const handleIntermediateStopChange = (e) => {
 
   const handleBack = () => {
     navigate("/admin/enrol");
-  }
+  };
 
   return (
     <div>
@@ -116,8 +119,12 @@ const handleIntermediateStopChange = (e) => {
           );
         })}
         <div className="route-enrol-container">
-        <button type="reset" onClick={handleBack}>Back</button>
-        <button type="submit">Submit</button>
+          <div className="route-enrol-button">
+            <button type="reset" onClick={handleBack}>
+              Back
+            </button>
+            <button type="submit">Submit</button>
+          </div>
         </div>
       </form>
       {error && <p style={{ color: "red" }}>{error}</p>}

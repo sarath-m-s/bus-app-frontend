@@ -1,5 +1,5 @@
 .admin-container {
-	display: flex;
+  display: flex;
   justify-content: space-between;
   padding: 20px;
   gap: 20px;
@@ -26,6 +26,14 @@
 }
 
 .select-container h1 {
-    text-align: left;
-  }
-  
+  text-align: left;
+}
+
+.admin-back {
+  display: flex;
+  align-items: center;
+  gap: 101px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+}

@@ -1,59 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker, DirectionsRenderer } from '@react-google-maps/api';
-
-const libraries = ['places'];
+import React, { useEffect } from 'react';
+import L from 'leaflet';
 
 function Location() {
-    const [directions, setDirections] = useState(null);
+  useEffect(() => {
+    // Initialize the map
+    const map = L.map('map').setView([51.505, -0.09], 13);
 
-    const origin = { lat: 37.7749, lng: -122.4194 }; // San Francisco
-    const destination = { lat: 34.0522, lng: -118.2437 }; // Los Angeles
+    // Add the tile layer to the map
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
 
-    const calculateDirections = () => {
-        const directionsService = new window.google.maps.DirectionsService();
-        const directionsRequest = {
-            origin,
-            destination,
-            travelMode: 'DRIVING',
-        };
-        directionsService.route(directionsRequest, (response, status) => {
-            if (status === 'OK') {
-                setDirections(response);
-            } else {
-                console.error('Directions request failed due to:', status);
-            }
-        });
-    };
+    // Hardcoded coordinates
+    const coord1 = L.latLng(51.505, -0.09);
+    const coord2 = L.latLng(52.505, -1.09);
 
-    useEffect(() => {
-        if (window.google) {
-            calculateDirections();
-        }
-    }, []);
+    // Add markers to the map
+    L.marker(coord1).addTo(map);
+    L.marker(coord2).addTo(map);
 
-    return (
-        <LoadScript
-            googleMapsApiKey="MY_API_KEY" 
-            libraries={libraries}
-            onLoad={() => calculateDirections()}
-        >
-            <GoogleMap
-                mapContainerStyle={{ width: '100vw', height: '400px' }}
-                zoom={6}
-                center={{ lat: (origin.lat + destination.lat) / 2, lng: (origin.lng + destination.lng) / 2 }}
-            >
-                {directions && (
-                    <>
-                        <DirectionsRenderer 
-                            directions={directions}
-                        />
-                        <Marker position={origin} />
-                        <Marker position={destination} />
-                    </>
-                )}
-            </GoogleMap>
-        </LoadScript>
-    );
-};
+    // Calculate and display the distance
+    const distance = map.distance(coord1, coord2);
+    L.popup()
+      .setLatLng(map.getCenter())
+      .setContent(`Distance: ${distance} meters`)
+      .openOn(map);
+
+    // TODO: Calculate and display the direction and ETA
+    
+  }, []);
+
+  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
+}
 
 export default Location;

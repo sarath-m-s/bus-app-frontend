@@ -38,35 +38,14 @@ function Customer() {
   const uniqueStops = getUniqueStops();
 
   const handleSubmit = () => {
-    const fromStop = busStops.find(
-      (busStop) =>
-        busStop.stops &&
-        busStop.stops.S &&
-        busStop.stops.S.find((stop) => stop.M.stopName.S === from)
-    );
-    const toStop = busStops.find(
-      (busStop) =>
-        busStop.stops &&
-        busStop.stops.S &&
-        busStop.stops.S.find((stop) => stop.M.stopName.S === to)
-    );
+    const validBuses = busStops.filter((busStop) => {
+      const stops = busStop.stops.map((stop) => stop.stopName);
+      const fromIndex = stops.indexOf(from);
+      const toIndex = stops.indexOf(to);
+      return fromIndex >= 0 && toIndex >= 0 && fromIndex < toIndex;
+    });
 
-    if (
-      fromStop &&
-      toStop &&
-      fromStop.stops &&
-      fromStop.stops.S &&
-      fromStop.stops.S[0] &&
-      toStop.stops &&
-      toStop.stops.S &&
-      toStop.stops.S[0] &&
-      Number(fromStop.stops.S[0].M.stopNumber.N) <
-        Number(toStop.stops.S[0].M.stopNumber.N)
-    ) {
-      setBusList([fromStop.route_id.S]);
-    } else {
-      setBusList([]);
-    }
+    setBusList(validBuses.map((bus) => bus.route_id));
   };
 
   return (
@@ -107,11 +86,20 @@ function Customer() {
       <button className="back" onClick={handleBack}>
         Back
       </button>
-      <ul>
-        {busList.map((bus, index) => (
-          <li key={index}>{bus}</li>
-        ))}
-      </ul>
+      <table className="table">
+        <thead>
+          <tr className="table-header">
+            <th>Route ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {busList.map((bus, index) => (
+            <tr key={index}>
+              <td className="table-cell">{bus}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

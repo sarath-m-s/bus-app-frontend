@@ -1,48 +1,58 @@
-import React, { useEffect, useState } from "react";
-import {
-  LoadScript,
-  GoogleMap,
-  DirectionsService,
-  DirectionsRenderer,
-} from "@react-google-maps/api";
+import React, { useState, useEffect } from 'react';
+import { GoogleMap, Marker, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
+import axios from 'axios';
 
 const MapLoading = () => {
+  const [distance, setDistance] = useState(null);
+  const [direction, setDirection] = useState(null);
   const [directions, setDirections] = useState(null);
 
-  const origin = { lat: 37.7749, lng: -122.4194 }; // Hard-coded origin coordinates
-  const destination = { lat: 34.0522, lng: -118.2437 }; // Hard-coded destination coordinates
+  const origin = { lat: 37.7749, lng: -122.4194 }; // Replace with your starting point coordinates
+  const destination = { lat: 34.0522, lng: -118.2437 }; // Replace with your ending point coordinates
 
-  const directionsOptions = {
-    destination: destination,
-    origin: origin,
-    travelMode: "DRIVING",
-  };
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: "AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g"
+  });
 
-  const directionsCallback = (response) => {
-    if (response !== null) {
-      if (response.status === "OK") {
-        setDirections(response);
-      } else {
-        console.log("Directions request failed:", response.status);
+  useEffect(() => {
+    const calculateDistanceAndDirection = async () => {
+      try {
+        const response = await axios.get('/api/directions', {
+          params: {
+            origin: `${origin.lat},${origin.lng}`,
+            destination: `${destination.lat},${destination.lng}`
+          }
+        });
+
+        const result = response.data;
+        const distanceInMeters = result.routes[0].legs[0].distance.value;
+        const distanceInKm = distanceInMeters / 1000;
+        setDistance(distanceInKm.toFixed(2));
+        setDirection(result.routes[0].legs[0].end_address);
+        setDirections(result);
+      } catch (error) {
+        console.error(`error fetching directions ${error}`);
       }
-    }
-  };
+    };
 
-  return (
-    <LoadScript googleMapsApiKey="YOUR_API_KEY">
-      <GoogleMap
-        mapContainerStyle={{ height: "400px", width: "100%" }}
-        zoom={10}
-        center={origin}
-      >
-        {directions && <DirectionsRenderer directions={directions} />}
-        <DirectionsService
-          options={directionsOptions}
-          callback={directionsCallback}
-        />
-      </GoogleMap>
-    </LoadScript>
-  );
+    if (isLoaded) {
+      calculateDistanceAndDirection();
+    }
+
+  }, [isLoaded]);
+
+  return isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={{ height: '400px', width: '100%' }}
+      zoom={8}
+      center={{ lat: (origin.lat + destination.lat) / 2, lng: (origin.lng + destination.lng) / 2 }}
+    >
+      <Marker position={origin} />
+      <Marker position={destination} />
+      {directions && <DirectionsRenderer directions={directions} />}
+    </GoogleMap>
+  ) : <></>;
 };
 
 export default MapLoading;

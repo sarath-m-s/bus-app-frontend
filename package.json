@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/maps": "^1.1.3",
+    "@googlemaps/google-maps-services-js": "^3.3.42",
     "@react-google-maps/api": "^2.19.3",
     "aws-amplify": "^6.0.21",
     "axios": "^1.6.7",
@@ -20,6 +22,7 @@
     "lrm-graphhopper": "^1.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-geocode": "^1.0.0-alpha.1",
     "react-leaflet": "^4.2.1",
     "react-map-gl": "^7.1.7",
     "react-places-autocomplete": "^7.3.0",

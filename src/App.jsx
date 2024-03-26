@@ -11,6 +11,8 @@ import DriverEnrol from "./pages/DriverEnrol.jsx";
 import RouteEnrol from "./pages/RouteEnrol.jsx";
 import SelectPage from "./pages/SelectPage.jsx";
 import Location from "./pages/Location.jsx";
+import MapLoading from "./pages/MapLoading.jsx";
+import GeolocationDisplay from "./pages/GeoLocationDisplay.jsx";
 // import Select from "./pages/SelectPage.jsx";
 // import Enroll from "./pages/EnrollPage.jsx";
 
@@ -23,6 +25,8 @@ function App() {
         <Route path="/login/location" element={<Location />} />
         <Route path="/login/driver" element={<BusData />} />
         <Route path="/login/customer" element={<Customer />} />
+        <Route path="/login/customer/map" element={<MapLoading />} />
+        <Route path="/login/customer/geolocation" element={<GeolocationDisplay />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/enrol" element={<EnrolMenu />} />
         <Route path="/admin/enrol/bus" element={<BusEnrol />} />

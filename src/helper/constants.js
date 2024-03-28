@@ -1,8 +1,18 @@
-export const ENROL_BUS_API_ENDPOINT = "https://nnsz4m1d0l.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/bus";
-export const ENROL_DRIVER_API_ENDPOINT = "https://n0oan6aw42.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/driver";
-export const ENROL_ROUTE_API_ENDPOINT = "https://byakqi1uyb.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/route";
-export const GET_ALL_BUS_DETAILS_API_ENDPOINT = "https://38jo3pawtd.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-bus-details";
-export const GET_ALL_DRIVER_DETAILS_API_ENDPOINT = "https://5bqe85igi8.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-driver-details";
-export const GET_ALL_ROUTE_DETAILS_API_ENDPOINT = "https://qg8v4y0sod.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-route-details";
-export const ASSOCIATE_API_ENDPOINT = "https://7qjbbodc6i.execute-api.us-east-1.amazonaws.com/prod/bta/associate/driver-bus-route";
-export const SAVE_LOCATION_API_ENDPOINT = "https://4y8ta28zd9.execute-api.us-east-1.amazonaws.com/prod/bta/save/geo-location";
+export const ENROL_BUS_API_ENDPOINT = "https://v9is2cp2e6.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/bus";
+export const ENROL_DRIVER_API_ENDPOINT = "https://poqvyr3mk8.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/driver";
+export const ENROL_ROUTE_API_ENDPOINT = "https://z3hs5qdwy0.execute-api.us-east-1.amazonaws.com/prod/bta/enrol/route";
+
+export const GET_ALL_BUS_DETAILS_API_ENDPOINT = "https://rc0h7twxv5.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-bus-details";
+export const GET_ALL_DRIVER_DETAILS_API_ENDPOINT = "https://ph45m3jyre.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-driver-details";
+export const GET_ALL_ROUTE_DETAILS_API_ENDPOINT = "https://0orlk1g0a3.execute-api.us-east-1.amazonaws.com/prod/bta/get/all-route-details";
+
+export const ASSOCIATE_API_ENDPOINT = "https://8loca9zpij.execute-api.us-east-1.amazonaws.com/prod/bta/associate/driver-bus-route";
+export const GET_ASSOCIATED_DETAILS_API_ENDPOINT = "https://9xeoczznw4.execute-api.us-east-1.amazonaws.com/prod/bta/get/driver-bus-route-association";
+export const GET_ALL_ASSOCIATED_DETAILS_BY_ROUTE_DRIVER_BUS_API_ENDPOINT = "https://mcdusl4lv4.execute-api.us-east-1.amazonaws.com/prod/bta/get/association-id";_
+
+export const SAVE_LOCATION_API_ENDPOINT = "https://gudihfg889.execute-api.us-east-1.amazonaws.com/prod/bta/save/geo-location";
+export const GET_LOCATION_API_ENDPOINT = "https://zgkhrjo45h.execute-api.us-east-1.amazonaws.com/prod/bta/get/geo-location";
+
+export const GET_DRIVER_DETAILS_API_ENDPOINT = "https://yyfjijvb4j.execute-api.us-east-1.amazonaws.com/prod/bta/get/driver-details";
+export const GET_BUS_DETAILS_API_ENDPOINT = "https://nwdb69z9ch.execute-api.us-east-1.amazonaws.com/prod/bta/get/bus-details";
+export const GET_ROUTE_DETAILS_API_ENDPOINT = "https://1t4a6zf0n1.execute-api.us-east-1.amazonaws.com/prod/bta/get/route-details";

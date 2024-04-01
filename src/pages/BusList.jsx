@@ -6,7 +6,7 @@ const BusList = () => {
     const busList = location.state.busList;
 
     const handleBusClick = (bus) => {
-        navigate(`/bus/${bus.bus_id}`, { state: { busId: bus.bus_id } });
+        navigate(`/login/customer/bus/${bus.bus_id}`, { state: { busId: bus.bus_id } });
     };
 
     return (

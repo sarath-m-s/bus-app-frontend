@@ -15,6 +15,7 @@ import MapLoading from "./pages/MapLoading.jsx";
 import GeolocationDisplay from "./pages/GeoLocationDisplay.jsx";
 import BusList from "./pages/BusList.jsx";
 import BusDetails from "./pages/BusDetails.jsx";
+import Directions from "./pages/Directions.jsx";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Route path="/admin/enrol/driver" element={<DriverEnrol />} />
         <Route path="/admin/enrol/route" element={<RouteEnrol />} />
         <Route path="/admin/select" element={<SelectPage />} />
+        <Route path="/test/directions" element={<Directions />} />
       </Routes>
     </Router>
   );

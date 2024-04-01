@@ -8,7 +8,7 @@ export const GET_ALL_ROUTE_DETAILS_API_ENDPOINT = "https://0orlk1g0a3.execute-ap
 
 export const ASSOCIATE_API_ENDPOINT = "https://8loca9zpij.execute-api.us-east-1.amazonaws.com/prod/bta/associate/driver-bus-route";
 export const GET_ASSOCIATED_DETAILS_API_ENDPOINT = "https://9xeoczznw4.execute-api.us-east-1.amazonaws.com/prod/bta/get/driver-bus-route-association";
-export const GET_ALL_ASSOCIATED_DETAILS_BY_ROUTE_DRIVER_BUS_API_ENDPOINT = "https://mcdusl4lv4.execute-api.us-east-1.amazonaws.com/prod/bta/get/association-id";_
+export const GET_ALL_ASSOCIATED_DETAILS_BY_ROUTE_API_ENDPOINT = "https://mcdusl4lv4.execute-api.us-east-1.amazonaws.com/prod/bta/get/association-id?route_id=";
 
 export const SAVE_LOCATION_API_ENDPOINT = "https://gudihfg889.execute-api.us-east-1.amazonaws.com/prod/bta/save/geo-location";
 export const GET_LOCATION_API_ENDPOINT = "https://zgkhrjo45h.execute-api.us-east-1.amazonaws.com/prod/bta/get/geo-location";

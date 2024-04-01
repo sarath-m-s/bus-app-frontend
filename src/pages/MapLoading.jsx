@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, Marker, DirectionsRenderer, useJsApiLoader } from '@react-google-maps/api';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  GoogleMap,
+  Marker,
+  DirectionsRenderer,
+  useJsApiLoader,
+} from "@react-google-maps/api";
+import axios from "axios";
 
 const MapLoading = () => {
   const [distance, setDistance] = useState(null);
@@ -11,19 +16,24 @@ const MapLoading = () => {
   const destination = { lat: 34.0522, lng: -118.2437 }; // Replace with your ending point coordinates
 
   const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g"
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g",
   });
 
   useEffect(() => {
     const calculateDistanceAndDirection = async () => {
       try {
-        const response = await axios.get('/api/directions', {
-          params: {
-            origin: `${origin.lat},${origin.lng}`,
-            destination: `${destination.lat},${destination.lng}`
+        const response = await axios.get(
+          `https://ydlsd8dk61.execute-api.us-east-1.amazonaws.com/prod/bta/google-maps-wrapper`,
+          {
+            params: {
+              origin_lat: origin.lat,
+              origin_lng: origin.lng,
+              destination_lat: destination.lat,
+              destination_lng: destination.lng,
+            },
           }
-        });
+        );
 
         const result = response.data;
         const distanceInMeters = result.routes[0].legs[0].distance.value;
@@ -39,20 +49,24 @@ const MapLoading = () => {
     if (isLoaded) {
       calculateDistanceAndDirection();
     }
-
   }, [isLoaded]);
 
   return isLoaded ? (
     <GoogleMap
-      mapContainerStyle={{ height: '400px', width: '100%' }}
+      mapContainerStyle={{ height: "400px", width: "100%" }}
       zoom={8}
-      center={{ lat: (origin.lat + destination.lat) / 2, lng: (origin.lng + destination.lng) / 2 }}
+      center={{
+        lat: (origin.lat + destination.lat) / 2,
+        lng: (origin.lng + destination.lng) / 2,
+      }}
     >
       <Marker position={origin} />
       <Marker position={destination} />
       {directions && <DirectionsRenderer directions={directions} />}
     </GoogleMap>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };
 
 export default MapLoading;

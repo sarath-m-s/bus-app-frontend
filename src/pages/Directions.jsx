@@ -14,12 +14,26 @@ const Directions = () => {
     const distanceMatrixService = useRef(null);
     const [distance, setDistance] = useState("");
     const [duration, setDuration] = useState("");
+    const [destination, setDestination] = useState(null);
+
+    const origin = { lat: 10.7677, lng: 76.2764 };
 
     useEffect(() => {
-        const origin = { lat: 10.7677, lng: 76.2764 };
-        const destination = { lat: 10.5276, lng: 76.2144 };
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setDestination({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            });
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    }, []);
 
+    useEffect(() => {
         if (
+            destination &&
             directionsService.current &&
             directionsRenderer.current &&
             map.current
@@ -57,7 +71,7 @@ const Directions = () => {
                 }
             );
         }
-    }, []);
+    }, [destination]);
 
     const onLoad = (mapInstance) => {
         map.current = mapInstance;
@@ -76,10 +90,7 @@ const Directions = () => {
                     width: "800px",
                 }}
                 zoom={7}
-                center={{
-                    lat: 40.748817,
-                    lng: -73.985428,
-                }}
+                center={origin}
                 onLoad={onLoad}
             >
                 {directionsRenderer.current && (

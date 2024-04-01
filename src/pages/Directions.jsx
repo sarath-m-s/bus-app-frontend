@@ -1,53 +1,71 @@
-import { useDirections } from "react-google-maps";
+import React, { useEffect, useRef } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  DirectionsService,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
 
 const Directions = () => {
-  const { response, error } = useDirections({
-    // Origin and destination are required.
-    origin: "Los Angeles, CA",
-    destination: "San Francisco, CA",
+  const directionsService = useRef(null);
+  const directionsRenderer = useRef(null);
+  const map = useRef(null);
 
-    // Optional travel mode.
-    travelMode: "DRIVING",
+  useEffect(() => {
+    const origin = { lat: 10.7677, lng: 76.2764 };
+    const destination = { lat: 10.5276, lng: 76.2144 };
 
-    // Optional waypoints.
-    waypoints: [
-      {
-        location: "Santa Barbara, CA",
-        stopover: true,
-      },
-    ],
+    if (
+      directionsService.current &&
+      directionsRenderer.current &&
+      map.current
+    ) {
+      directionsService.current.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
+        (result, status) => {
+          if (status === window.google.maps.DirectionsStatus.OK) {
+            directionsRenderer.current.setDirections(result);
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
+        }
+      );
+    }
+  }, []);
 
-    // Optional optimizeWaypoints.
-    optimizeWaypoints: true,
-  });
+  const onLoad = (mapInstance) => {
+    map.current = mapInstance;
+    directionsService.current = new window.google.maps.DirectionsService();
+    directionsRenderer.current = new window.google.maps.DirectionsRenderer();
+    directionsRenderer.current.setMap(mapInstance);
+  };
 
-  if (error) {
-    console.error(error);
-    return null;
-  }
-
-  if (!response) {
-    return null;
-  }
-
-  // Render the directions response.
   return (
-    <div>
-      {/* Display the route on a map. */}
-      <Map
-        center={response.routes[0].legs[0].start_location}
-        zoom={10}
+    <LoadScript googleMapsApiKey="AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g">
+      <GoogleMap
+        id="direction-example"
+        mapContainerStyle={{
+          height: "400px",
+          width: "800px",
+        }}
+        zoom={7}
+        center={{
+          lat: 40.748817,
+          lng: -73.985428,
+        }}
+        onLoad={onLoad}
       >
-        <DirectionsRenderer directions={response} />
-      </Map>
-
-      {/* Display the directions as text. */}
-      <ul>
-        {response.routes[0].legs[0].steps.map((step, i) => (
-          <li key={i}>{step.instructions}</li>
-        ))}
-      </ul>
-    </div>
+        {directionsRenderer.current && (
+          <DirectionsRenderer
+            directions={directionsRenderer.current.getDirections()}
+          />
+        )}
+      </GoogleMap>
+    </LoadScript>
   );
 };
 

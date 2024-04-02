@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   GoogleMap,
-  LoadScript,
   DirectionsService,
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import "../styles/Directions.css";
 
 const Directions = ({ origin }) => {
+  const navigate = useNavigate();
   const directionsService = useRef(null);
   const directionsRenderer = useRef(null);
   const map = useRef(null);
@@ -15,8 +16,6 @@ const Directions = ({ origin }) => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [destination, setDestination] = useState(null);
-
-//   const origin = { lat: 10.7677, lng: 76.2764 };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -83,7 +82,7 @@ const Directions = ({ origin }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g">
+    <div>
       <GoogleMap
         id="direction-example"
         mapContainerStyle={{
@@ -104,7 +103,10 @@ const Directions = ({ origin }) => {
         <h2 className="distance">Distance: {distance}</h2>
         <h2 className="duration">Duration: {duration}</h2>
       </div>
-    </LoadScript>
+      <div className="back-from-direction">
+        <button onClick={() => navigate("/login/customer")}>Back</button>
+      </div>
+    </div>
   );
 };
 

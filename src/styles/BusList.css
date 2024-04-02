@@ -13,3 +13,14 @@
     padding-right: 20px;
     gap: 20px;
 }
+
+.back-to-customer {
+    position: fixed;
+    left: 50%;
+    bottom: 150px;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e42799;
+}

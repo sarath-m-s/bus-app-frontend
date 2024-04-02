@@ -28,7 +28,7 @@ function App() {
         <Route path="/login/driver" element={<BusData />} />
         <Route path="/login/customer" element={<Customer />} />
         <Route path="/login/customer/bus-list" element={<BusList />} />
-        <Route path="/login/customer/bus/:id" element={<BusDetails />} />
+        <Route path="/login/customer/bus/:bus_id" element={<BusDetails />} />
         <Route path="/login/customer/map" element={<MapLoading />} />
         <Route path="/login/customer/geolocation" element={<GeolocationDisplay />} />
         <Route path="/admin" element={<Admin />} />

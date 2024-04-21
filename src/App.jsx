@@ -32,8 +32,7 @@ function App() {
           <Route path="/login/customer/bus-list" element={<BusList />} />
           <Route path="/login/customer/bus/:bus_id" element={<BusDetails />} />
           <Route path="/login/customer/map" element={<MapLoading />} />
-          <Route path="/login/customer/geolocation" element={<GeolocationDisplay />}
-          />
+          <Route path="/login/customer/geolocation" element={<GeolocationDisplay />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/enrol" element={<EnrolMenu />} />
           <Route path="/admin/enrol/bus" element={<BusEnrol />} />

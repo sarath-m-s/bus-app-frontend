@@ -16,3 +16,5 @@ export const GET_LOCATION_API_ENDPOINT = "https://zgkhrjo45h.execute-api.us-east
 export const GET_DRIVER_DETAILS_API_ENDPOINT = "https://yyfjijvb4j.execute-api.us-east-1.amazonaws.com/prod/bta/get/driver-details";
 export const GET_BUS_DETAILS_API_ENDPOINT = "https://nwdb69z9ch.execute-api.us-east-1.amazonaws.com/prod/bta/get/bus-details";
 export const GET_ROUTE_DETAILS_API_ENDPOINT = "https://1t4a6zf0n1.execute-api.us-east-1.amazonaws.com/prod/bta/get/route-details";
+
+export const GOOGLE_MAPS_API_KEY = "AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g";

@@ -17,10 +17,11 @@ import BusList from "./pages/BusList.jsx";
 import BusDetails from "./pages/BusDetails.jsx";
 import Directions from "./pages/Directions.jsx";
 import { LoadScript } from "@react-google-maps/api";
+import { GOOGLE_MAPS_API_KEY } from "./helper/constants.js";
 
 function App() {
   return (
-    <LoadScript googleMapsApiKey="AIzaSyCCTN2hd3Ovs-yMeKTB0WeYBkMWm14MY7g">
+    <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -31,9 +32,7 @@ function App() {
           <Route path="/login/customer/bus-list" element={<BusList />} />
           <Route path="/login/customer/bus/:bus_id" element={<BusDetails />} />
           <Route path="/login/customer/map" element={<MapLoading />} />
-          <Route
-            path="/login/customer/geolocation"
-            element={<GeolocationDisplay />}
+          <Route path="/login/customer/geolocation" element={<GeolocationDisplay />}
           />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/enrol" element={<EnrolMenu />} />

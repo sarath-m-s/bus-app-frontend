@@ -9,6 +9,7 @@ import "../styles/Directions.css";
 
 const Directions = ({ origin }) => {
   const navigate = useNavigate();
+  const geocoder = useRef(null);
   const directionsService = useRef(null);
   const directionsRenderer = useRef(null);
   const map = useRef(null);
@@ -16,19 +17,45 @@ const Directions = ({ origin }) => {
   const [distance, setDistance] = useState("");
   const [duration, setDuration] = useState("");
   const [destination, setDestination] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setDestination({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+    geocoder.current = new window.google.maps.Geocoder();
+  }, []);
+
+  const handleLocationSearch = () => {
+  if (directionsRenderer.current) {
+    directionsRenderer.current.setDirections(null);
+  }
+
+  geocoder.current.geocode({ address: inputValue }, (results, status) => {
+    if (status === "OK") {
+      setDestination({
+        lat: results[0].geometry.location.lat(),
+        lng: results[0].geometry.location.lng(),
       });
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      console.error("Geocode was not successful for the following reason: " + status);
     }
-  }, []);
+  });
+};
+
+const handleCurrentLocation = () => {
+  if (directionsRenderer.current) {
+    directionsRenderer.current.setDirections(null);
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setDestination({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+};
 
   useEffect(() => {
     if (
@@ -83,6 +110,13 @@ const Directions = ({ origin }) => {
 
   return (
     <div>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button onClick={handleLocationSearch}>Search</button>
+      <button onClick={handleCurrentLocation}>Your Location</button>
       <GoogleMap
         id="direction-example"
         mapContainerStyle={{

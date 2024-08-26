@@ -15,16 +15,6 @@ The Bus Tracking App is a real-time application that allows users to track the l
 - **Axios**: Promise-based HTTP client for making API requests
 - **CSS**: Styling the application
 
-## Screenshots
-![Bus Tracking Map](assets/screenshot1.png)
-*Bus Tracking Map View*
-
-![Bus Details](assets/screenshot2.png)
-*Bus Details View*
-
-![Search Feature](assets/screenshot3.png)
-*Search Feature View*
-
 ## Getting Started
 
 ### Prerequisites

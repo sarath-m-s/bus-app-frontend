@@ -1,0 +1,41 @@
+.enrol-menu-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  gap: 38px;
+}
+
+.new-driver-container {
+  flex: 1;
+  padding: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.new-bus-container {
+  flex: 1;
+  padding: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.new-route-container {
+  flex: 1;
+  padding: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.enrol-menu-back {
+	display: flex;
+	align-items: center;
+	gap: 101px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	padding-left: 40px;
+}
+
+

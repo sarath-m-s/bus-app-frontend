@@ -1,0 +1,28 @@
+#direction-example {
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.details {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.distance,
+.duration {
+  font-size: 20px;
+  color: #e0dfdf;
+}
+
+.back-from-direction {
+  position: fixed;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

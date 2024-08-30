@@ -1,70 +1,102 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/Customer.css";
+import {
+  GET_ALL_ROUTE_DETAILS_API_ENDPOINT,
+  GET_ALL_ASSOCIATED_DETAILS_BY_ROUTE_API_ENDPOINT,
+  GET_ALL_BUS_DETAILS_API_ENDPOINT,
+} from "../helper/constants.js";
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 const Customer = () => {
+  const [busStops, setBusStops] = useState([]);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [busList, setBusList] = useState([]);
-  const [busStops, setBusStops] = useState([]);
   const navigate = useNavigate();
 
-  const handleBack = () => {
-    navigate("/login");
-  };
-
   useEffect(() => {
-    const fetchBusStops = async () => {
-      try {
-        const response = await axios.get("https://your-api-endpoint.com");
-        setBusStops(response.data);
-      } catch (error) {
-        console.error("Error fetching bus stops from DynamoDB", error);
-      }
-    };
-
-    fetchBusStops();
+    axios
+      .get(GET_ALL_ROUTE_DETAILS_API_ENDPOINT)
+      .then((response) => setBusStops(response.data))
+      .catch((error) => console.error("Error fetching bus stops", error));
   }, []);
 
-  const handleSubmit = () => {
-    const filteredBuses = busStops.filter(
-      (busStop) => busStop === from || busStop === to
+  const handleSubmit = async () => {
+    const validBuses = busStops.filter(({ stops }) => {
+      const stopNames = stops.map(({ stopName }) => stopName);
+      const fromIndex = stopNames.indexOf(from);
+      const toIndex = stopNames.indexOf(to);
+      return fromIndex >= 0 && toIndex >= 0 && fromIndex < toIndex;
+    });
+
+    console.log("ValidBuses :", validBuses);
+
+    const associationResponses = await Promise.all(
+      validBuses.map(({ route_id }) =>
+        axios.get(
+          `${GET_ALL_ASSOCIATED_DETAILS_BY_ROUTE_API_ENDPOINT}${route_id}`
+        )
+      )
     );
-    setBusList(filteredBuses);
+
+    console.log("AssociationResponse:", associationResponses);
+
+    const busIds = associationResponses.flatMap(({ data }) =>
+      data.association_id.map(({ bus_id }) => bus_id)
+    );
+
+    const { data: buses } = await axios.get(GET_ALL_BUS_DETAILS_API_ENDPOINT);
+    const busDetails = buses.filter(({ bus_id }) => busIds.includes(bus_id));
+
+    navigate("/login/customer/bus-list", { state: { busList: busDetails } });
   };
+
+  const uniqueStops = [
+    ...new Set(
+      busStops.flatMap(({ stops }) => stops.map(({ stopName }) => stopName))
+    ),
+  ];
+
+  console.log("Unique Stops:", uniqueStops);
 
   return (
     <div className="customer-container">
       <h1>Where is my bus..?</h1>
       <p>Search for buses</p>
       <div className="form-group">
-        <input
-          type="text"
+        <select
           className="form-control"
-          placeholder="From"
           value={from}
           onChange={(e) => setFrom(e.target.value)}
-        />
+        >
+          <option value="">Select From</option>
+          {uniqueStops.map((stop, index) => (
+            <option key={index} value={stop}>
+              {stop}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="form-group">
-        <input
-          type="text"
+        <select
           className="form-control"
-          placeholder="To"
           value={to}
           onChange={(e) => setTo(e.target.value)}
-        />
+        >
+          <option value="">Select To</option>
+          {uniqueStops.map((stop, index) => (
+            <option key={index} value={stop}>
+              {stop}
+            </option>
+          ))}
+        </select>
       </div>
       <button className="btn btn-primary" onClick={handleSubmit}>
         Submit
       </button>
-      <button className="back" onClick={handleBack}>Back</button>
-      <ul>
-        {busList.map((bus, index) => (
-          <li key={index}>{bus}</li>
-        ))}
-      </ul>
+      <button className="back" onClick={() => navigate("/login")}>
+        Back
+      </button>
     </div>
   );
 };

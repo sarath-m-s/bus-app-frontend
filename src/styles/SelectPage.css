@@ -1,0 +1,44 @@
+.selectPage-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+}
+
+label {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+option {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* SelectPage.css */
+
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  appearance: none;
+  background-color: #1a202c;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>'); /* Add custom dropdown arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.7em top 50%, 0 0; /* Position the arrow */
+  background-size: 0.65em auto, 100%; /* Resize the arrow */
+}
+
+.select-button {
+  display: flex;
+  gap: 350px;
+  padding-left: 40px;
+  padding-top: 20px;
+}

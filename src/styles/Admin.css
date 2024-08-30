@@ -1,0 +1,39 @@
+.admin-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 20px;
+}
+
+.enrol-container {
+  flex: 1;
+  padding: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.select-container {
+  flex: 1;
+  padding: 100px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.enrol-container h1 {
+  text-align: left;
+}
+
+.select-container h1 {
+  text-align: left;
+}
+
+.admin-back {
+  display: flex;
+  align-items: center;
+  gap: 101px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+}

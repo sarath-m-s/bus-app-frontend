@@ -1,82 +1,36 @@
-import React from "react";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from "react-places-autocomplete";
-import { db } from "./Firebase";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import L from 'leaflet';
 
-export default function Location() {
-  const [address, setAddress] = React.useState("");
-  const [coordinates, setCoordinates] = React.useState({
-    lat: null,
-    lng: null,
-    travelMode: "DRIVING",
-  });
-
-  const [destination, setDestinations] = React.useState([]);
-
-  let origins = [coordinates.lat, coordinates.lng];
-  let travelMode = coordinates.travelMode;
-
-  let destinations = destination.map((position) => {
-    return [position.Latitude, position.Longitude];
-  });
-
+function Location() {
   useEffect(() => {
-    const unsub = db.collection("Location").onSnapshot((snapshot) => {
-      const allPositions = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setDestinations(allPositions);
-    });
-    return () => {
-      unsub();
-    };
+    // Initialize the map
+    const map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Add the tile layer to the map
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Hardcoded coordinates
+    const coord1 = L.latLng(51.505, -0.09);
+    const coord2 = L.latLng(52.505, -1.09);
+
+    // Add markers to the map
+    L.marker(coord1).addTo(map);
+    L.marker(coord2).addTo(map);
+
+    // Calculate and display the distance
+    const distance = map.distance(coord1, coord2);
+    L.popup()
+      .setLatLng(map.getCenter())
+      .setContent(`Distance: ${distance} meters`)
+      .openOn(map);
+
+    // TODO: Calculate and display the direction and ETA
+    
   }, []);
 
-  const handleSelect = async (value) => {
-    const results = await geocodeByAddress(value);
-    const latLng = await getLatLng(results[0]);
-    setAddress(value);
-    setCoordinates(latLng);
-  };
-
-  console.log(destinations);
-
-  return (
-    <div>
-      <PlacesAutocomplete
-        value={address}
-        onChange={setAddress}
-        onSelect={handleSelect}
-      >
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <p>Latitude: {coordinates.lat}</p>
-            <p>Longitude: {coordinates.lng}</p>
-
-            <input {...getInputProps({ placeholder: "Type address" })} />
-
-            <div>
-              {loading ? <div>...loading</div> : null}
-
-              {suggestions.map((suggestion) => {
-                const style = {
-                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
-                };
-
-                return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
-                    {suggestion.description}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
-    </div>
-  );
+  return <div id="map" style={{ height: "100vh", width: "100%" }}></div>;
 }
+
+export default Location;

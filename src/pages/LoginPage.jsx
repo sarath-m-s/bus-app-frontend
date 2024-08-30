@@ -6,7 +6,7 @@ function Home() {
   const navigate = useNavigate();
 
   const handleDriver = () => {
-    navigate("/login/driver");
+    navigate("/admin");
   };
 
   const handleCustomer = () => {
@@ -16,9 +16,9 @@ function Home() {
   return (
     <div className="container">
       <div className="column1">
-        <h2>Login as driver</h2>
+        <h2>Driver's portal</h2>
         <p>
-          Are you a bus driver? Login here to enter bus details, update
+          Are you a bus driver? Click here to enter bus details, update
           schedules, and manage your routes.
         </p>
         <button className="driver-button" onClick={handleDriver}>
@@ -26,9 +26,9 @@ function Home() {
         </button>
       </div>
       <div className="column2">
-        <h2>Login as customer</h2>
+        <h2>Customer's portal</h2>
         <p>
-          Looking for a bus? Login here to search for bus details, check
+          Looking for a bus? Click here to search for bus details, check
           schedules, and plan your journey.
         </p>
         <button className="customer-button" onClick={handleCustomer}>
